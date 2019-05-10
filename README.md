@@ -1,2 +1,2 @@
 # NetRexx-Patches
-Places for NetRexx Code
+Place for NetRexx Code
