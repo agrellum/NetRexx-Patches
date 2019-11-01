@@ -1,0 +1,216 @@
+filetype: netrexx
+
+detect:
+    filename: "(\\.nrx$|\\.njp$)"
+
+rules:
+
+    # operators - eleven basic symbols but multiple combinations.
+    - symbol.operator: ([+*|=\\%]|<|>|/|-|&)
+    - symbol.brackets: "[(){}]|\\[|\\]"
+    # other symbols
+    - symbol: ([.:;,])
+
+    # boolean - NetRexx uses 1 and 0; 'true' and 'false' can be defined by variables though.
+
+    # numbers
+    - constant.number: "\\b[+-]?([0-9]+(\\.[0-9]+)?|\\.[0-9]+|\\.)([eE][+-]?[0-9]+)?[i]?\\b"
+
+    # binary
+    - constant.specialChar: "\\\\x[A-Fa-f0-9]{2}"
+    - constant.specialChar: "\\b(([0-9])+([bB])+([0-1]+))\\b"
+
+    # hex
+    - constant.specialChar: "\\b(([0-9])+([xX])+([A-Fa-f0-9]+))\\b"
+
+    # escape sequences - NetRexx does not had \b; added \0 for null
+    - constant.specialChar: "\\\\([tnrf]|'|\\\"|\\\\|\0)"
+
+    # unicode
+    - constant.specialChar: "\\\\u[A-Fa-f0-9]{4}"
+
+    # strings using double quote character
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            # highlight binary number inside string
+            - constant.specialChar: "\\b(([0-9])+([bB])+([0-1]+))\\b"
+            # highlight hex number inside string
+            - constant.specialChar: "\\\\x[A-Fa-f0-9]{2}"
+            - constant.specialChar: "\\b(([0-9])+([xX])+([A-Fa-f0-9]+))\\b"
+            # highlight unicode number inside string
+            - constant.specialChar: "\\\\u[A-Fa-f0-9]{4}"
+            - constant.specialChar: "\\\\."
+
+    #  strings using single quote character
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules:
+            # highlight binary number inside string
+            - constant.specialChar: "\\b(([0-9])+([bB])+([0-1]+))\\b"
+            # highlight hex number inside string
+            - constant.specialChar: "\\\\x[A-Fa-f0-9]{2}"
+            - constant.specialChar: "\\b(([0-9])+([xX])+([A-Fa-f0-9]+))\\b"
+            # highlight unicode number inside string
+            - constant.specialChar: "\\\\u[A-Fa-f0-9]{4}"
+            - constant.specialChar: "\\\\."
+
+    # keywords related to program flow
+    - special: "\\b(exit|iterate|leave|return|signal)\\b"
+
+    # keywords that appear before first class or statement
+    - statement: "(?i)\\b(import|options|package)\\b"
+
+    # option parameters
+    - statement.parameter: "(?i)\\b(binary|nobinary)\\b"
+    - statement.parameter: "(?i)\\b(comments|nocomments)\\b"
+    - statement.parameter: "(?i)\\b(compact|nocompact)\\b"
+    - statement.parameter: "(?i)\\b(console|noconsole)\\b"
+    - statement.parameter: "(?i)\\b(crossref|nocrossref)\\b"
+    - statement.parameter: "(?i)\\b(decimal|nodecimal)\\b"
+    - statement.parameter: "(?i)\\b(diag|nodiag)\\b"
+    - statement.parameter: "(?i)\\b(explicit|noexplicit)\\b"
+    - statement.parameter: "(?i)\\b(format|noformat)\\b"
+    - statement.parameter: "(?i)\\b(java|nojava)\\b"
+    - statement.parameter: "(?i)\\b(logo|nologo)\\b"
+    - statement.parameter: "(?i)\\b(replace|noreplace)\\b"
+    - statement.parameter: "(?i)\\b(savelog|nosavelog)\\b"
+    - statement.parameter: "(?i)\\b(sourcedir|nosourcedir)\\b"
+    - statement.parameter: "(?i)\\b(strictargs|nostrictargs)\\b"
+    - statement.parameter: "(?i)\\b(strictassign|nostrictassign)\\b"
+    - statement.parameter: "(?i)\\b(strictcase|nostrictcase)\\b"
+    - statement.parameter: "(?i)\\b(strictimport|nostrictimport)\\b"
+    - statement.parameter: "(?i)\\b(strictprops|nostrictprops)\\b"
+    - statement.parameter: "(?i)\\b(strictsignal|nostrictsignal)\\b"
+    - statement.parameter: "(?i)\\b(symbols|nosymbols)\\b"
+    - statement.parameter: "(?i)\\b(trace0|trace1|trace2|notrace)\\b"
+    - statement.parameter: "(?i)\\b(utf8|noutf8)\\b"
+    - statement.parameter: "(?i)\\b(verbose|verbose0)\\b"
+    - statement.parameter: "(?i)\\b(verbose1|verbose2)\\b"
+    - statement.parameter: "(?i)\\b(verbose3|verbose4|verbose5)\\b"
+    - statement.parameter: "(?i)\\b(verbose5|noverbose)\\b"
+
+    # give color to class names; later reset class to default statement color
+    - blue: "class +[A-Za-z0-9]+ *((implements|extends) +[A-Za-z0-9.]+)?"
+
+    # properties
+    - statement.properties: "(?i)\\b(properties)\\b"
+
+    # visibility
+    -  statement.access: "(?i)\\b(constant|indirect|inheritable|private|public|shared|static)\\b"
+
+    # give color to method names; later reset method to default statement color
+    - blue: "method +[A-Za-z0-9]+"
+
+    # builtin-functions
+    - statement.built_in: "(?i)\\b(abbrev|abs|b2d|b2x|c2d|c2x|center|centre)\\b"
+    - statement.built_in: "(?i)\\b(changestr|compare|copies|copyindexed)\\b"
+    - statement.built_in: "(?i)\\b(countstr|d2b|d2c|d2x|datatype|delstr)\\b"
+    - statement.built_in: "(?i)\\b(delword|exists|format|insert|lastpos|left)\\b"
+    - statement.built_in: "(?i)\\b(length|lower|max|min|overlay|pos)\\b"
+    - statement.built_in: "(?i)\\b(reverse|right|sequence|sign|space|strip)\\b"
+    - statement.built_in: "(?i)\\b(substr|subword|translate|trunc|upper)\\b"
+    - statement.built_in: "(?i)\\b(verify|word|wordindex|wordlength)\\b"
+    - statement.built_in: "(?i)\\b(wordpos|words|x2b|x2c|x2d)\\b"
+
+    # Rexx arithmetic methods
+    - statement: "(?i)\\b(OpAdd|OpAnd|OpCc|OpCcblank|OpDiv|OpDivI)\\b"
+    - statement: "(?i)\\b(OpEq|OpEqS|OpGt|OpGtEq|OpGtEqS|OpGtS|OpLt)\\b"
+    - statement: "(?i)\\b(OpLtEq|OpLtEqS|OpLtS|OpMinus|OpMult|OpNot|OpNotEq)\\b"
+    - statement: "(?i)\\b(OpNotEqS|OpOr|OpPlus|OpPow|OpRem|OpSub|OpXor)\\b"
+
+    # Rexx miscellaneous methods
+    - statement: "(?i)\\b(charAt|equals|hashCode|toboolean|tobyte)\\b"
+    - statement: "(?i)\\b(toByteArray|tochar|toCharArray|todouble|tofloat)\\b"
+    - statement: "(?i)\\b(toint|tolong|toRexx|toshort|toString)\\b"
+
+    # RexxIO
+    - statement: "(?i)\\b(Ask|AskOne|Say|File|forEachline)\\b"
+    - statement: "(?i)\\b(popOutputStream|pushOutputStream|setOutputStream)\\b"
+
+    # RexxSet digits|form
+    - statement: "(?i)\\b(RexxSet|formword|setDigits|setForm)\\b"
+    - statement: "(?i)\\b(DEFAULT_DIGITS|DEFAULT_FORM||ENGINEERING|SCIENTIFIC)\\b"
+
+    # Exceptions
+    - blue: "(?i)\\b(BadArgumentException|BadColumnException)\\b"
+    - blue: "(?i)\\b(BadNumericException|DivideException)\\b"
+    - blue: "(?i)\\b(ExponentOverflowException|NoOtherwiseException)\\b"
+    - blue: "(?i)\\b(NotCharacterException|NotLogicException)\\b"
+
+    # modifiers
+    - statement.class: "(?i)\\b(abstract|adapter|binary|dependent)\\b"
+    - statement.class: "(?i)\\b(deprecated|extends|final|implements|interface)\\b"
+    - statement.class: "(?i)\\b(native|protect|returns|signals|transient)\\b"
+    - statement.class: "(?i)\\b(unused|uses|volatile)\\b"
+
+    # data types
+    - special: "(?i)\\b(boolean|byte|char|double|float)\\b"
+    - special: "(?i)\\b(int|long|short|Rexx|String|void)\\b"
+
+    # special names
+    - special: "(?i)\\b(ask|digits|form|length|null|parent|source)\\b"
+    - special: "(?i)\\b(sourceline|super|this|trace|version)\\b"
+
+    # keywords
+    # re-color class/method from above
+    - statement: "(?i)\\b(class|method|do|if|loop|nop|numeric)\\b"
+    - statement: "(?i)\\b(parse|properties|say|select)\\b"
+    - statement: "(?i)\\b(catch|else|end|finally|otherwise|then|when)\\b"
+
+    # sub-keywords
+    - statement: "(?i)\\b(all|by|case|engineering|for|forever)\\b"
+    - statement: "(?i)\\b(label|methods|off|over|results|scientific)\\b"
+    - statement: "(?i)\\b(to|until|var|while)\\b"
+
+    # pipe
+    - statement: "(?i)\\b(pipe)\\b"
+
+    # pipe stages
+    - brightgreen: "(?i)\\b(abbrev|append|array|arraya|arrayr)\\b"
+    - brightgreen: "(?i)\\b(arrayw|between|buffer|casei|change|chop|command)\\b"
+    - brightgreen: "(?i)\\b(compare|console|copy|count|dam|deal|deblock|dict)\\b"
+    - brightgreen: "(?i)\\b(dicta|dictr|dictw|disk|diska|diskr|diskslow|diskw|drop)\\b"
+    - brightgreen: "(?i)\\b(dup|elastic|fanin|faninany|fanout|fblock|file|filea|filer)\\b"
+    - brightgreen: "(?i)\\b(fileslow|filew|find|frlabel|frtarget|gate|gen|getfiles)\\b"
+    - brightgreen: "(?i)\\b(getovers|getstems|hash|hasha|hashr|hashw|hole)\\b"
+    - brightgreen: "(?i)\\b(insert|inside|join|joincont|juxtapose|listzip|literal)\\b"
+    - brightgreen: "(?i)\\b(locate|lookup|moveInfo.nrx|nfind|nlocate|noeofback)\\b"
+    - brightgreen: "(?i)\\b(nop|not|notinside|outside|over|overlay|pad|pick|prefix)\\b"
+    - brightgreen: "(?i)\\b(ptimer|qsort|random|reverse|serialize|sort|sortClass)\\b"
+    - brightgreen: "(?i)\\b(sortRexx|specs|split|sqlselect|stem|stema|stemr|stemw)\\b"
+    - brightgreen: "(?i)\\b(strfind|strfrlabel|strliteral|strnfind|strtolabel|take|task)\\b"
+    - brightgreen: "(?i)\\b(tcpclient|tcpdata|tcplisten|timestamp|tokenize|tolabel)\\b"
+    - brightgreen: "(?i)\\b(totarget|unique|unzip|var|vector|vectora|vectorr)\\b"
+    - brightgreen: "(?i)\\b(vectorw|watchp|xconsole|xlate|zip|zone)\\b"
+
+    # annotations - LEAVE HERE to avoid clashing with KEYWORDS above
+    - magenta: "@[A-Za-z]+"
+
+    # Block Comment
+    - cyan:
+        start: "/\\*"
+        end: "\\*/"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+      
+    # Doc Comment
+    - cyan:
+        start: "/\\*\\*"
+        end: "\\*/"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+
+    # Line Comment
+    - cyan:
+        start: "--"
+        end: "$"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+
+    # Todo
+    - todo: "(TODO|XXX|FIXME):?"
