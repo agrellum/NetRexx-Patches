@@ -133,7 +133,7 @@ rules:
     - statement: "(?i)\\b(toint|tolong|toRexx|toshort|toString)\\b"
 
     # RexxIO
-    - statement: "(?i)\\b(Ask|AskOne|Say|File|forEachline)\\b"
+    - statement: "(?i)\\b(RexxIO|Ask|AskOne|Say|File|forEachline)\\b"
     - statement: "(?i)\\b(popOutputStream|pushOutputStream|setOutputStream)\\b"
 
     # RexxSet digits|form
@@ -183,9 +183,9 @@ rules:
     - brightgreen: "(?i)\\b(fileslow|filew|find|frlabel|frtarget|gate|gen|getfiles)\\b"
     - brightgreen: "(?i)\\b(getovers|getstems|hash|hasha|hashr|hashw|hole)\\b"
     - brightgreen: "(?i)\\b(insert|inside|join|joincont|juxtapose|listzip|literal)\\b"
-    - brightgreen: "(?i)\\b(locate|lookup|moveInfo.nrx|nfind|nlocate|noeofback)\\b"
+    - brightgreen: "(?i)\\b(locate|lookup|nfind|nlocate|noeofback)\\b"
     - brightgreen: "(?i)\\b(nop|not|notinside|outside|over|overlay|pad|pick|prefix)\\b"
-    - brightgreen: "(?i)\\b(ptimer|qsort|random|reverse|serialize|sort|sortClass)\\b"
+    - brightgreen: "(?i)\\b(ptimer|query|qsort|random|reverse|serialize|sort|sortClass)\\b"
     - brightgreen: "(?i)\\b(sortRexx|specs|split|sqlselect|stem|stema|stemr|stemw)\\b"
     - brightgreen: "(?i)\\b(strfind|strfrlabel|strliteral|strnfind|strtolabel|take|task)\\b"
     - brightgreen: "(?i)\\b(tcpclient|tcpdata|tcplisten|timestamp|tokenize|tolabel)\\b"
@@ -201,7 +201,7 @@ rules:
         end: "\\*/"
         rules:
             - todo: "(TODO|XXX|FIXME):?"
-      
+
     # Doc Comment
     - cyan:
         start: "/\\*\\*"
