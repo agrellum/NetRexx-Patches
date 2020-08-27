@@ -220,12 +220,16 @@ rules:
     - green: "(?i)\\b(main)\\b"
     - green: "(?i)\\b(link|succeed|return)\\b"
     - red: "(?i)\\b(suspend)\\b"
+    # fix goaldi
+    - green: "(?i)\\b(catch|continue|extends|lambda|nil|select|with|yield)\\b"
 
     # preprocessor
     - cyan: "(?i)(\\$define|\\$undef)"
     - cyan: "(?i)(\\$if|\\$elsif|\\$else|\\$endif)"
     - cyan: "(?i)(\\$load|\\$uload)"
     - cyan: "(?i)(\\$include|\\$line|\\$error|\\$encoding)"
+    # fix missing
+    - cyan: "(?i)(\\$ifdef|\\$ifndef)"
 
     # builtin functions
     - brightblue: "(?i)\\b(abs|any|back|bal|center|char|classof|clear)\\b"
@@ -239,6 +243,12 @@ rules:
     - brightblue: "(?i)\\b(right|runerr|seq|serial|set|sort|sortf)\\b"
     - brightblue: "(?i)\\b(string|syserr|system|tab|table|text|trim)\\b"
     - brightblue: "(?i)\\b(type|uchar|ucs|upto|weakref|weakrefval)\\b"
+    # fix missing
+    - brightblue: "(?i)\\b(acos|asin|atan|chdir|close|cos|dtor|exp)\\b"
+    - brightblue: "(?i)\\b(flush|function|getch|getche|getenv|kbhit)\\b"
+    - brightblue: "(?i)\\b(log|name|open|read|reads|remove|rename)\\b"
+    - brightblue: "(?i)\\b(rtod|seek|sin|sqrt|stop|tan|variable)\\b"
+    - brightblue: "(?i)\\b(where|write|writes)\\b"
 
     # keywords
     - magenta: "(?i)(&ascii|&break|&clock|&cset|&current|&date)"
@@ -248,6 +258,9 @@ rules:
     - magenta: "(?i)(&letters|&level|&line|&main|&maxlevel|&no)"
     - magenta: "(?i)(&null|&pos|&progname|&random|&source|&subject)"
     - magenta: "(?i)(&time|&trace|&ucase|&uset|&version|&why|&yes)"
+    # fix missing
+    - magenta: "(?i)(&e|&errout|&input|&output|&phi|&pi|&program)"
+    - magenta: "(?i)(&x|&y|&lpress|&rpress)"
 
     # code blocks, field modifiers
     - magenta: "(?i)\\b(class|procedure|record|method)\\b"
