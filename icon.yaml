@@ -155,47 +155,50 @@ rules:
 
     # colorize names of class, procedure, record and method.
     # reset class/procedure/record/method color below
-    - brightgreen: "class +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
-    - brightgreen: "procedure +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
-    - brightgreen: "record +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
-    - brightgreen: "method +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
+    - special: "class +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
+    - special: "procedure +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
+    - special: "record +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
+    - special: "method +[A-Za-z0-9|_]+ *( +[A-Za-z0-9.]+)?"
 
     # flow/other
-    - green: "(?i)\\b(break|by|case|catch|continue|create|default|do|else)\\b"
-    - green: "(?i)\\b(every|extends|fail|if|lambda|link|main|next|nil|not)\\b"
-    - green: "(?i)\\b(of|repeat|return|select|succeed|suspend|then|to)\\b"
-    - green: "(?i)\\b(until|while|with|yield)\\b"
+    - special: "(?i)\\b(break|by|case|catch|continue|create|default|do|else)\\b"
+    - special: "(?i)\\b(every|extends|fail|if|lambda|link|main|next|nil|not)\\b"
+    - special: "(?i)\\b(of|repeat|return|select|succeed|suspend|then|to)\\b"
+    - special: "(?i)\\b(until|while|with|yield)\\b"
 
     # preprocessor
-    - cyan: "\\$(?i)\\b(define|else|elsif|encoding|endif)\\b"
-    - cyan: "\\$(?i)\\b(error|if|ifdef|ifndef|include)\\b"
-    - cyan: "\\$(?i)\\b(line|load|uload|undef)\\b"
+    # SKIP using leading $ to avoid bug:
+    # https://github.com/zyedidia/micro/issues/1457
+    # KEEP color scheme same as flow/other to match 'if' 'else'
+    - special: "(?i)\\b(define|else|elsif|encoding|endif)\\b"
+    - special: "(?i)\\b(error|if|ifdef|ifndef|include)\\b"
+    - special: "(?i)\\b(line|load|uload|undef)\\b"
 
     # builtin functions
-    - brightblue: "(?i)\\b(abs|acos|any|asin|atan|back|bal|center|char)\\b"
-    - brightblue: "(?i)\\b(chdir|classof|clear|close|coact|cocopy|cofail)\\b"
-    - brightblue: "(?i)\\b(collect|copy|cos|cset|delay|delete|detab)\\b"
-    - brightblue: "(?i)\\b(display|dtor|entab|errorclear|exit|exp)\\b"
-    - brightblue: "(?i)\\b(fatalerr|find|flush|function|get|getch|getche)\\b"
-    - brightblue: "(?i)\\b(getenv|iand|icom|image|insert|integer|ior|is)\\b"
-    - brightblue: "(?i)\\b(ishift|ixor|kbhit|key|keyof|keyval|left|list)\\b"
-    - brightblue: "(?i)\\b(log|many|map|match|max|member|min|move|name)\\b"
-    - brightblue: "(?i)\\b(numeric|open|ord|pop|pos|proc|pull|push|put)\\b"
-    - brightblue: "(?i)\\b(read|reads|real|remove|rename|repl|reverse)\\b"
-    - brightblue: "(?i)\\b(right|rtod|runerr|seek|seq|serial|set|sin)\\b"
-    - brightblue: "(?i)\\b(sort|sortf|sqrt|stop|string|syserr|system|tab)\\b"
-    - brightblue: "(?i)\\b(table|tan|text|trim|type|uchar|ucs|upto)\\b"
-    - brightblue: "(?i)\\b(variable|weakref|weakrefval|where|write|writes)\\b"
+    - statement.built_in: "(?i)\\b(abs|acos|any|asin|atan|back|bal|center|char)\\b"
+    - statement.built_in: "(?i)\\b(chdir|classof|clear|close|coact|cocopy|cofail)\\b"
+    - statement.built_in: "(?i)\\b(collect|copy|cos|cset|delay|delete|detab)\\b"
+    - statement.built_in: "(?i)\\b(display|dtor|entab|errorclear|exit|exp)\\b"
+    - statement.built_in: "(?i)\\b(fatalerr|find|flush|function|get|getch|getche)\\b"
+    - statement.built_in: "(?i)\\b(getenv|iand|icom|image|insert|integer|ior|is)\\b"
+    - statement.built_in: "(?i)\\b(ishift|ixor|kbhit|key|keyof|keyval|left|list)\\b"
+    - statement.built_in: "(?i)\\b(log|many|map|match|max|member|min|move|name)\\b"
+    - statement.built_in: "(?i)\\b(numeric|open|ord|pop|pos|proc|pull|push|put)\\b"
+    - statement.built_in: "(?i)\\b(read|reads|real|remove|rename|repl|reverse)\\b"
+    - statement.built_in: "(?i)\\b(right|rtod|runerr|seek|seq|serial|set|sin)\\b"
+    - statement.built_in: "(?i)\\b(sort|sortf|sqrt|stop|string|syserr|system|tab)\\b"
+    - statement.built_in: "(?i)\\b(table|tan|text|trim|type|uchar|ucs|upto)\\b"
+    - statement.built_in: "(?i)\\b(variable|weakref|weakrefval|where|write|writes)\\b"
 
     # keywords
-    - magenta: "\\&(?i)\\b(ascii|break|clock|cset|current|date|dateline)\\b"
-    - magenta: "\\&(?i)\\b(digits|dump|e|errorcoexpr|errornumber)\\b"
-    - magenta: "\\&(?i)\\b(errortext|errorvalue|errout|fail|features)\\b"
-    - magenta: "\\&(?i)\\b(file|handler|host|input|lcase|letters|level)\\b"
-    - magenta: "\\&(?i)\\b(line|lpress|main|maxlevel|no|null|output)\\b"
-    - magenta: "\\&(?i)\\b(phi|pi|pos|progname|program|random|rpress)\\b"
-    - magenta: "\\&(?i)\\b(source|subject|time|trace|ucase|uset|version)\\b"
-    - magenta: "\\&(?i)\\b(why|x|y|yes)\\b"
+    - statement.reserved: "\\&(?i)\\b(ascii|break|clock|cset|current|date|dateline)\\b"
+    - statement.reserved: "\\&(?i)\\b(digits|dump|e|errorcoexpr|errornumber)\\b"
+    - statement.reserved: "\\&(?i)\\b(errortext|errorvalue|errout|fail|features)\\b"
+    - statement.reserved: "\\&(?i)\\b(file|handler|host|input|lcase|letters|level)\\b"
+    - statement.reserved: "\\&(?i)\\b(line|lpress|main|maxlevel|no|null|output)\\b"
+    - statement.reserved: "\\&(?i)\\b(phi|pi|pos|progname|program|random|rpress)\\b"
+    - statement.reserved: "\\&(?i)\\b(source|subject|time|trace|ucase|uset|version)\\b"
+    - statement.reserved: "\\&(?i)\\b(why|x|y|yes)\\b"
 
     # code blocks, field modifiers
     - magenta: "(?i)\\b(class|procedure|record|method)\\b"
@@ -203,13 +206,49 @@ rules:
     - magenta: "(?i)\\b(optional|override|package|private|protected)\\b"
     - magenta: "(?i)\\b(public|readable|static)\\b"
 
-    # LEAVE THESE LINES BELOW THIS POINT TO AVOID BUG
-    # https://github.com/zyedidia/micro/issues/1457
-    # drop back to plain strings
-    - constant.string: "\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*'"
+    # strings using double quote character
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            # escape sequences
+            - constant.specialChar: "\\\\([bdeflnrtv]|'|\\\"|\\\\)"
+            # highlight numbers inside string
+            - constant.number: "\\b[+-]?([0-9]+(\\.[0-9]+)?|\\.[0-9]+|\\.)([eE][+-]?[0-9]+)?[i]?\\b"
+            # highlight binary number inside string
+            - constant.specialChar: "\\b(([0-9])+([bB])+([0-1]+))\\b"
+            # highlight hex number inside string
+            - constant.specialChar: "\\\\x[A-Fa-f0-9]{2}"
+            - constant.specialChar: "\\b(([0-9])+([xX])+([A-Fa-f0-9]+))\\b"
+            # highlight unicode number inside string
+            - constant.specialChar: "\\\\[u][A-Fa-f0-9]{4}"
+            - constant.specialChar: "\\\\[U][A-Fa-f0-9]{6}"
+            - constant.specialChar: "\\\\."
+
+    #  strings using single quote character
+    - constant.string:
+        start: "\'"
+        end: "\'"
+        skip: "\\\\."
+        rules:
+            # escape sequences
+            - constant.specialChar: "\\\\([bdeflnrtv]|'|\\\"|\\\\)"
+            # highlight numbers inside string
+            - constant.number: "\\b[+-]?([0-9]+(\\.[0-9]+)?|\\.[0-9]+|\\.)([eE][+-]?[0-9]+)?[i]?\\b"
+            # highlight binary number inside string
+            - constant.specialChar: "\\b(([0-9])+([bB])+([0-1]+))\\b"
+            # highlight hex number inside string
+            - constant.specialChar: "\\\\x[A-Fa-f0-9]{2}"
+            # highlight unicode number inside string
+            - constant.specialChar: "\\\\[u][A-Fa-f0-9]{4}"
+            - constant.specialChar: "\\\\[U][A-Fa-f0-9]{6}"
+            - constant.specialChar: "\\\\."
 
     # escape sequences
-    - constant.specialChar: "\\\\([bdeflnrtv]|'|\\\"|\\\\)"
+    # SKIP USING THEM OUTSIDE OF QUOTES
+    # Keep ICON's use of \(non-null test) easy to see.
+    #- constant.specialChar: "\\\\([bdeflnrtv]|'|\\\"|\\\\)"
 
     # numbers
     - constant.number: "\\b[+-]?([0-9]+(\\.[0-9]+)?|\\.[0-9]+|\\.)([eE][+-]?[0-9]+)?[i]?\\b"
@@ -230,3 +269,4 @@ rules:
         end: "$"
         rules:
             - todo: "(TODO|XXX|FIXME):?"
+
